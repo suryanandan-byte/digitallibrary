@@ -46,7 +46,7 @@ header nav ul li a{
     margin-top: -8px;
     margin-left: -8px;
     margin-right: -9px;
-    background-image: url(../assets/images/pexels-wojtekpaczes-18298079.jpg);
+    background-image: url('../assets/images/pexels-wojtekpaczes-18298079.jpg');
     background-position: center;
     background-size: cover;
     height: 600px;
@@ -255,4 +255,5 @@ footer {
     font-family: 'Arial', sans-serif;
 
 }
+
 
