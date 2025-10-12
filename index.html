@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Digital Library</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Digital Library</h1>
+        <!-- Mobile nav toggle -->
+        <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle navigation">
+            ☰
+        </button>
+        <nav id="mainNav" class="main-nav">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#catalog">Catalog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home">
+        <p>Explore Our Collection <br> Of <br> Digital Books and Resources.</p>
+    </section>
+    <section id="about">
+        <div class="about1">
+        <img src="./assets/images/pexels-tima-miroshnichenko-6550164.jpg" alt="">   
+        <div> 
+        <h2>About Us</h2>
+        <p>A digital library is a managed collection of information and resources stored in digital formats and accessible over a network, typically the internet. Unlike a traditional library with physical books and materials, a digital library's holdings—such as e-books, articles, journals, images, audio files, and videos are available 24/7 from anywhere in the world.</p>
+        </div>      
+        </div>
+    </section>
+    <section id="catalog">   
+        <h2>Catalog</h2>
+        <div class="catalog-controls">
+            <div class="catalog-controls-left">
+                <label for="orderSelect">Order by:</label>
+                <select id="orderSelect">
+                    <option value="title-asc">Title (A–Z)</option>
+                    <option value="title-desc">Title (Z–A)</option>
+                    <option value="author-asc">Author (A–Z)</option>
+                    <option value="downloads-desc">Downloads (high → low)</option>
+                </select>
+                <label for="categorySelect">Category:</label>
+                <select id="categorySelect">
+                    <option value="">All categories</option>
+                </select>
+            </div>
+            <div class="catalog-search">
+                <input type="search" id="catalogSearch" placeholder="Search by title or author" aria-label="Search books">
+                <button id="searchBtn" type="button">Search</button>
+            </div>
+        </div>
+        <div>
+            <ul id="catalog-list">
+                <!-- Books from API will be rendered here -->
+            </ul>
+        </div>
+    </section>
+    
+    <footer>
+        <section id="contact">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or feedback, please <a href="contact.html">get in touch</a>.</p>
+        </section>
+    </footer>
+    <script src="./js/script.js"></script>
+</body>
+</html>
