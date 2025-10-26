@@ -7,6 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('catalogSearch');
     const searchBtn = document.getElementById('searchBtn');
     const categorySelect = document.getElementById('categorySelect');
+    // Modal elements
+    const bookModal = document.getElementById('book-modal');
+    const modalClose = document.getElementById('bookModalClose');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalCover = document.getElementById('modalCover');
+    const modalTitle = document.getElementById('book-modal-title');
+    const modalAuthor = document.getElementById('modalAuthor');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalReadLink = document.getElementById('modalReadLink');
 
     // The URL for the Gutendex API to fetch books.
     // We are asking for 32 books to nicely fill the space.
@@ -119,16 +129,21 @@ document.addEventListener('DOMContentLoaded', () => {
             info.className = 'book-info';
 
             const titleLink = document.createElement('a');
-            let bookUrl = book.formats['text/html'] || book.formats['text/plain; charset=utf-8'] || '';
-            if (bookUrl) {
-                titleLink.href = bookUrl;
-                titleLink.target = '_blank';
-                titleLink.rel = 'noopener noreferrer';
-            } else {
-                titleLink.href = '#';
-            }
+            // We'll open a detail modal on click; keep a reference to a readable URL
+            let bookUrl = (book.formats && (book.formats['text/html'] || book.formats['text/plain; charset=utf-8'])) || '';
+            titleLink.href = '#';
             titleLink.className = 'book-title';
             titleLink.textContent = book.title || 'Untitled';
+
+            // Clicking the title opens a detail modal instead of navigating away
+            titleLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openBookModal(book);
+            });
+
+            // Make the cover clickable to open the modal as well
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => openBookModal(book));
 
             const authorEl = document.createElement('div');
             authorEl.className = 'book-author';
@@ -143,6 +158,62 @@ document.addEventListener('DOMContentLoaded', () => {
             catalogList.appendChild(listItem);
         });
     }
+
+    // Open the book detail modal and populate content
+    function openBookModal(book) {
+        if (!book) return;
+        const cover = pickImageFromFormats(book.formats);
+        modalCover.src = cover || placeholderDataUri();
+        modalCover.alt = (book.title || 'Book') + ' cover';
+        modalTitle.textContent = book.title || 'Untitled';
+        modalAuthor.textContent = (book.authors && book.authors[0] && book.authors[0].name) ? book.authors[0].name : '';
+
+        // Build a short description from available fields
+        let desc = '';
+        if (book.subtitle) desc += book.subtitle + '\n\n';
+        if (book.languages && book.languages.length) desc += 'Language: ' + book.languages.join(', ') + '\n';
+        if (book.download_count) desc += 'Downloads: ' + book.download_count + '\n';
+        // Include subjects as a readable list
+        if (book.subjects && book.subjects.length) desc += '\nSubjects: ' + book.subjects.slice(0,6).join(', ');
+        modalDescription.textContent = desc || (book.bookshelves && book.bookshelves.join(', ')) || 'No description available.';
+
+        // Meta info
+        modalMeta.innerHTML = '';
+        if (book.authors && book.authors.length) {
+            const a = document.createElement('div'); a.textContent = 'Author(s): ' + book.authors.map(x => x.name).join(', '); modalMeta.appendChild(a);
+        }
+        if (book.subjects && book.subjects.length) {
+            const s = document.createElement('div'); s.textContent = 'Subjects: ' + book.subjects.slice(0,8).join(', '); modalMeta.appendChild(s);
+        }
+
+        // Configure the read/download link
+        const readUrl = (book.formats && (book.formats['text/html'] || book.formats['text/plain; charset=utf-8'])) || '';
+        if (readUrl) {
+            modalReadLink.href = readUrl;
+            modalReadLink.style.display = 'inline-flex';
+        } else {
+            modalReadLink.href = '#';
+            modalReadLink.style.display = 'none';
+        }
+
+        // Show modal
+        bookModal.setAttribute('aria-hidden', 'false');
+        // trap focus could be added later; focus close button for quick keyboard close
+        setTimeout(() => modalClose && modalClose.focus(), 30);
+    }
+
+    function closeBookModal() {
+        bookModal.setAttribute('aria-hidden', 'true');
+    }
+
+    // Close handlers
+    if (modalClose) modalClose.addEventListener('click', closeBookModal);
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeBookModal);
+    // Clicking backdrop closes
+    const backdrop = document.querySelector('.book-modal-backdrop');
+    if (backdrop) backdrop.addEventListener('click', (e) => { if (e.target && e.target.dataset && e.target.dataset.close) closeBookModal(); });
+    // Escape key closes
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBookModal(); });
 
     // Choose an image URL from the formats object; fall back to a tiny SVG placeholder
     function pickImageFromFormats(formats) {

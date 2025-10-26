@@ -67,6 +67,26 @@
         <p>If you have any questions or feedback, please <a href="contact.html">get in touch</a>.</p>
         </section>
     </footer>
+    <!-- Book detail modal -->
+    <div id="book-modal" class="book-modal" aria-hidden="true" role="dialog" aria-labelledby="book-modal-title">
+        <div class="book-modal-backdrop" data-close="true"></div>
+        <div class="book-modal-panel">
+            <button id="bookModalClose" class="book-modal-close" aria-label="Close">✕</button>
+            <div class="book-modal-body">
+                <img id="modalCover" class="modal-cover" src="" alt="Book cover">
+                <div class="modal-info">
+                    <h2 id="book-modal-title" class="modal-title">Title</h2>
+                    <div id="modalAuthor" class="modal-author">Author</div>
+                    <p id="modalDescription" class="modal-description"></p>
+                    <div id="modalMeta" class="modal-meta"></div>
+                    <div class="modal-actions">
+                        <a id="modalReadLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Read / Download</a>
+                        <button id="modalCloseBtn" class="btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="./js/script.js"></script>
 </body>
 </html>
