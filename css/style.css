@@ -255,8 +255,6 @@ footer {
     font-family: 'Arial', sans-serif;
 
 }
-
-/* Book detail modal styles */
 .book-modal {
     position: fixed;
     inset: 0;
@@ -290,16 +288,67 @@ footer {
     font-size: 20px;
     cursor: pointer;
 }
-.book-modal-body { display: flex; gap: 20px; padding: 24px; align-items: flex-start; color: #222; }
-.modal-cover { width: 180px; height: 250px; object-fit: cover; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.15); background: #f3efe6; }
-.modal-info { flex: 1; display:flex; flex-direction:column; gap:12px; }
-.modal-title { margin:0; font-size: 22px; color: #2c2c2c; }
-.modal-author { color:#6b6b6b; font-weight:600; }
-.modal-description { color:#333; line-height:1.5; max-height: 40vh; overflow:auto; }
-.modal-meta { color:#555; font-size: 14px; }
-.modal-actions { display:flex; gap:12px; margin-top:8px; }
-.btn { padding:8px 12px; border-radius:6px; border:1px solid rgba(0,0,0,0.08); background:#eee; cursor:pointer; }
-.btn-primary { background:#5f3d1b; color:#fff; border:none; text-decoration:none; display:inline-flex; align-items:center; }
+.book-modal-body { 
+    display: flex; 
+    gap: 20px; 
+    padding: 24px; 
+    align-items: flex-start; 
+    color: #222; 
+}
+.modal-cover { 
+    width: 180px; 
+    height: 250px; 
+    object-fit: cover; 
+    border-radius: 6px; 
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15); 
+    background: #f3efe6; 
+}
+.modal-info { 
+    flex: 1; 
+    display:flex; 
+    flex-direction:column; 
+    gap:12px; 
+}
+.modal-title { 
+    margin:0; 
+    font-size: 22px; 
+    color: #2c2c2c; 
+}
+.modal-author { 
+    color:#6b6b6b; 
+    font-weight:600; 
+}
+.modal-description { 
+    color:#333; 
+    line-height:1.5; 
+    max-height: 40vh; 
+    overflow:auto; 
+}
+.modal-meta { 
+    color:#555; 
+    font-size: 14px; 
+}
+.modal-actions {
+     display:flex; 
+     gap:12px; 
+     margin-top:8px; 
+}       
+.btn { 
+    padding:8px 12px; 
+    border-radius:6px; 
+    font-size:14px; 
+    cursor:pointer; 
+    text-decoration:none; 
+    text-align:center; 
+}
+.btn-primary {
+     background:#5f3d1b; 
+     color:#fff; 
+     border:none; 
+     text-decoration:none; 
+     display:inline-flex; 
+     align-items:center; 
+}
 
 @media (max-width:640px) {
     .book-modal-body { flex-direction: column; align-items: center; }
